@@ -24,35 +24,9 @@ var pathAry = [[104.0671, 30.53813, 0],
 [104.06682, 30.53806, 0],]
 var pageOper = {
     generatePath:function(start,stop){
-        // //Generate a random circular pattern with varying heights.
-        // var index = 0;
-        // var property = new Cesium.SampledPositionProperty();
-
-        // for (var i = 0; i <= 360; i += 45) {
-        //     // var radians = Cesium.Math.toRadians(i);
-        //     var time = Cesium.JulianDate.addSeconds(start, i, new Cesium.JulianDate());
-
-        //     var pathInfo = pathAry[index>pathAry.length-1?0:index];
-        //     console.log(index)
-        //     var position = Cesium.Cartesian3.fromDegrees(pathInfo[0],pathInfo[1],pathInfo[2]);
-        //     index++;
-        //     property.addSample(time, position);
-    
-        //     //Also create a point for each sample we generate.
-        //     viewer.entities.add({
-        //         position : position,
-        //         point : {
-        //             pixelSize : 8,
-        //             color : Cesium.Color.TRANSPARENT,
-        //             outlineColor : Cesium.Color.RED,
-        //             outlineWidth : 3
-        //         }
-        //     });
-        // }
-        // return property;
         var property = new Cesium.SampledPositionProperty();
         pathAry.forEach(function(item,i){
-            var time = Cesium.JulianDate.addSeconds(start,i*45,new Cesium.JulianDate());
+            var time = Cesium.JulianDate.addSeconds(start,i*3,new Cesium.JulianDate());
             var position = Cesium.Cartesian3.fromDegrees(item[0],item[1],item[2]);
             property.addSample(time,position);
             viewer.entities.add({
@@ -93,8 +67,10 @@ var pageOper = {
             }
             
         })
+        
         // viewer.trackedEntity = entity;
         viewer.zoomTo(viewer.entities, new Cesium.HeadingPitchRange(0, Cesium.Math.toRadians(-90)));
+        //todo
         entity.position.setInterpolationOptions({
             interpolationDegree : 1,
             interpolationAlgorithm : Cesium.LinearApproximation
@@ -105,15 +81,15 @@ var pageOper = {
         Cesium.Math.setRandomNumberSeed(3);
 
         //Set bounds of our simulation time
-        var start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
-        var stop = Cesium.JulianDate.addSeconds(start, pathAry.length*45, new Cesium.JulianDate());
+        var start = Cesium.JulianDate.fromDate(new Date());
+        var stop = Cesium.JulianDate.addSeconds(start, pathAry.length*3, new Cesium.JulianDate());
 
         //确保视图是在所设置的时间内
         viewer.clock.startTime = start.clone();
         viewer.clock.stopTime = stop.clone();
         viewer.clock.currentTime = start.clone();
         viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP; //Loop at the end
-        viewer.clock.multiplier = 10;
+        viewer.clock.multiplier = 10; //不太理解这个是干什么的.............
 
         //Set timeline to simulation bounds
         viewer.timeline.zoomTo(start, stop);    
