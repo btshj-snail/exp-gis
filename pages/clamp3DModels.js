@@ -2,7 +2,7 @@
  * @Author: snail 
  * @Date: 2019-03-12 15:08:51 
  * @Last Modified by: snail
- * @Last Modified time: 2019-03-12 16:53:20
+ * @Last Modified time: 2019-03-12 17:00:28
  * 这个例子和官网的clamp to 3D model 是一样的....只不过在updatePosition里面有变化...
  * 我们的经纬度是degrees为单位,而官网则是以radians为单位
  * 因此updatePosition略有不同...
@@ -17,8 +17,8 @@ var viewer = null;
 var objectsToExclude = [];
 var cartographic = new Cesium.Cartographic();
 var longitude = 104.0671;
-var latitude = 30.53813;
-var range = 0.0002;
+var latitude = 30.53803;
+var range = 0.00006;
 var duration = 10.0;
 var point = null;
 var pageOper = {
