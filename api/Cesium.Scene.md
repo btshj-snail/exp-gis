@@ -55,6 +55,9 @@ maximumRenderTimeChange|Number|0.0|如果requestRenderMode为true,那么该值�
 
 ## 属性
 
+> ***readonly*** sampleHeightSupported : Boolean
+
+如果支持scene sampleheight和scene sampleHeightMostDetailed 函数，则返回true。
 
 ## 方法
 

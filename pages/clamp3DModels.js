@@ -2,7 +2,7 @@
  * @Author: snail 
  * @Date: 2019-03-12 15:08:51 
  * @Last Modified by: snail
- * @Last Modified time: 2019-03-12 15:22:18
+ * @Last Modified time: 2019-03-12 16:53:20
  * 这个例子和官网的clamp to 3D model 是一样的....只不过在updatePosition里面有变化...
  * 我们的经纬度是degrees为单位,而官网则是以radians为单位
  * 因此updatePosition略有不同...
@@ -11,6 +11,7 @@
  * 
  * 
  * 但是这个方法,最重要的扫描高度,并没有看出来.不知道什么地方出问题了.height一直都是undefined...官网也是一样.
+ * 哈哈知道问题了....原来是浏览器版本低了...HOHO..Cesium也不提示下,真是的...
  */
 var viewer = null;
 var objectsToExclude = [];
@@ -33,14 +34,11 @@ var pageOper = {
       height = viewer.scene.sampleHeight(_cartogrphic, objectsToExclude);
     }
     if (Cesium.defined(height)) {
-      cartographic.height = height;
-      point.label.text =
-        Math.abs(height)
-          .toFixed(2)
-          .toString() + "m";
+        _cartogrphic.height = height;
+      point.label.text = Math.abs(height).toFixed(2).toString() + "m";
       point.label.show = true;
     } else {
-      cartographic.height = 0.0;
+        _cartogrphic.height = 0.0;
       point.label.show = false;
     }
     result = viewer.scene.globe.ellipsoid.cartographicToCartesian(_cartogrphic);
@@ -75,7 +73,7 @@ var pageInit = {
     );
   },
   initModel: function() {
-    var position = Cesium.Cartesian3.fromDegrees(longitude, latitude);
+    var position = Cesium.Cartesian3.fromDegrees(longitude, latitude,0);
     var entity = viewer.entities.add({
       position: position,
       model: {
@@ -91,16 +89,16 @@ var pageInit = {
       point: {
         pixelSize: 10,
         color: Cesium.Color.YELLOW,
-        disableDepthTestDistance: Number.POSITIVE_INFINITY
+        disableDepthTestDistance : Number.POSITIVE_INFINITY
       },
       label: {
         show: false,
         showBackground: true,
         font: "14px monospace",
         horizontalorigin: Cesium.HorizontalOrigin.LEFT,
-        verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+        verticalOrigin: Cesium.VerticalOrigin.TOP,
         pixelOffset: new Cesium.Cartesian3(5, 5),
-        disableDepthTestDistance: Number.POSITIVE_INFINITY
+        disableDepthTestDistance : Number.POSITIVE_INFINITY
       }
     });
     objectsToExclude.push(point);
