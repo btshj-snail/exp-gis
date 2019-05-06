@@ -1,3 +1,9 @@
+/*
+ * @Author: snail 
+ * @Date: 2019-03-12 17:02:15 
+ * @Last Modified by: snail
+ * @Last Modified time: 2019-03-12 17:24:26
+ */
 
 var viewer = null,entity =null;
 var pageOper = {
@@ -22,12 +28,12 @@ var pageOper = {
 var pageInit = {
     initGis: function () {
         viewer = new Cesium.Viewer('cesiumContainer', {
-            geocoder: false,
-            infoBox: false,
-            navigationHelpButton: false,
-            selectionIndicator: false,
-            shadows: false,
-            shouldAnimate: true,
+            // geocoder: false,
+            // infoBox: false,
+            // navigationHelpButton: false,
+            // selectionIndicator: false,
+            // shadows: false,
+            // shouldAnimate: true,
             baseLayerPicker: false,
             terrainProvider : Cesium.createWorldTerrain()
         })
